@@ -1,0 +1,197 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Pebble Watch App Settings</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <style>
+    h2 {
+        font: 28px"Lucida Grande", Lucida, Verdana, sans-serif;
+        color: #777777;
+        text-align: center;
+    }
+    button {
+        -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+        -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+        box-shadow: inset 0px 1px 0px 0px #ffffff;
+        background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
+        background: -moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+        background-color: #ededed;
+        -webkit-border-top-left-radius: 6px;
+        -moz-border-radius-topleft: 6px;
+        border-top-left-radius: 6px;
+        -webkit-border-top-right-radius: 6px;
+        -moz-border-radius-topright: 6px;
+        border-top-right-radius: 6px;
+        -webkit-border-bottom-right-radius: 6px;
+        -moz-border-radius-bottomright: 6px;
+        border-bottom-right-radius: 6px;
+        -webkit-border-bottom-left-radius: 6px;
+        -moz-border-radius-bottomleft: 6px;
+        border-bottom-left-radius: 6px;
+        text-indent: 0;
+        border: 1px solid #dcdcdc;
+        display: inline-block;
+        color: #777777;
+        font-family: arial;
+        font-size: 15px;
+        font-weight: bold;
+        font-style: normal;
+        height: 37px;
+        width: 125px;
+        text-decoration: none;
+        text-align: center;
+        text-shadow: 1px 1px 0px #ffffff;
+        margin-right: 10px;
+        float: right;
+    }
+    .onoffswitch {
+        position: relative;
+        width: 125px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        margin-left: 10px;
+        float: left;
+    }
+    .onoffswitch-checkbox {
+        display: none;
+    }
+    .onoffswitch-label {
+        display: block;
+        overflow: hidden;
+        cursor: pointer;
+        border: 2px solid #777777;
+        border-radius: 14px;
+    }
+    .onoffswitch-inner {
+        display: block;
+        width: 200%;
+        margin-left: -100%;
+        -moz-transition: margin 0.3s ease-in 0s;
+        -webkit-transition: margin 0.3s ease-in 0s;
+        -o-transition: margin 0.3s ease-in 0s;
+        transition: margin 0.3s ease-in 0s;
+    }
+    .onoffswitch-inner:before,
+    .onoffswitch-inner:after {
+        display: block;
+        float: left;
+        width: 50%;
+        height: 33px;
+        padding: 0;
+        line-height: 33px;
+        font-size: 14px;
+        color: white;
+        font-family: Trebuchet, Arial, sans-serif;
+        font-weight: bold;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .onoffswitch-inner:before {
+        content: "Kilometers";
+        padding-left: 10px;
+        background-color: #ededed;
+        color: #777777;
+    }
+    .onoffswitch-inner:after {
+        content: "Miles";
+        padding-right: 10px;
+        background-color: #ededed;
+        color: #777777;
+        text-align: right;
+    }
+    .onoffswitch-switch {
+        display: block;
+        width: 21px;
+        margin: 6px;
+        background: #777777;
+        border: 2px solid #777777;
+        border-radius: 14px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 88px;
+        -moz-transition: all 0.3s ease-in 0s;
+        -webkit-transition: all 0.3s ease-in 0s;
+        -o-transition: all 0.3s ease-in 0s;
+        transition: all 0.3s ease-in 0s;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+        margin-left: 0;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+        right: 0px;
+    }
+    </style>
+</head>
+
+<body>
+    <h2>Unit for distance</h2>
+
+    <div class="onoffswitch">
+        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="settingsonoffswitch">
+        <label class="onoffswitch-label" for="myonoffswitch">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+        </label>
+    </div>
+
+    <button type="submit" id="b-save">Save</button>
+
+    <div id="cunit"></div>
+
+    <script>
+    $(function() {
+
+        function saveOptions() {
+            var unitsetting = '';
+
+            if ($("#settingsonoffswitch").is(':checked')) {
+                unitsetting = 'km';
+            } else {
+                unitsetting = 'miles';
+            }
+
+            var options = {
+                gUnit: unitsetting
+            }
+
+            return options;
+        }
+
+        $('#b-save').click(function() {
+            var location = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(saveOptions()));
+            document.location = location;
+        });
+
+        function gup(name) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regexS = "[\\?&]" + name + "=([^&#]*)";
+            var regex = new RegExp(regexS);
+            var results = regex.exec(window.location.href);
+            if (results == null) {
+                return null;
+            } else {
+                return results[1];
+            }
+        }
+
+        var cUnit = gup('unit');
+
+        if(cUnit == 'miles'){
+            $("#settingsonoffswitch").prop( "checked", false );
+        } else {
+            $("#settingsonoffswitch").prop( "checked", true );
+        }
+
+    });
+    </script>
+</body>
+
+</html>

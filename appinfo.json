@@ -1,0 +1,52 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        "location",
+        "configurable"
+    ],
+    "companyName": "Fort Wayne Open Device Lab",
+    "longName": "Device Lab Locator",
+    "projectType": "pebblejs",
+    "resources": {
+        "media": [
+            {
+                "file": "images/menu_icon.png",
+                "name": "IMAGE_MENU_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/logo_splash.png",
+                "name": "IMAGE_LOGO_SPLASH",
+                "type": "png"
+            },
+            {
+                "file": "images/tile_splash.png",
+                "name": "IMAGE_TILE_SPLASH",
+                "type": "png"
+            },
+            {
+                "file": "fonts/UbuntuMono-Regular.ttf",
+                "name": "MONO_FONT_14",
+                "type": "font"
+            },
+            {
+                "file": "images/SplashScreen.png",
+                "name": "IMAGES_SPLASHSCREEN_PNG",
+                "type": "png"
+            },
+            {
+                "file": "images/MenuIcon.png",
+                "menuIcon": true,
+                "name": "IMAGES_MENUICON_PNG",
+                "type": "png"
+            }
+        ]
+    },
+    "shortName": "ODL Locator",
+    "uuid": "[Your Pebble App ID]",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
